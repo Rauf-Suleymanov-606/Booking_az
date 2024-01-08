@@ -1,0 +1,39 @@
+package com.example.booking_az.entity;
+
+import com.example.booking_az.enumaration.OrderStatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.ToString;
+
+import java.util.Date;
+
+@Entity
+@Data
+@Table(name = "bookings")
+public class Booking {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Date checkInDate;
+    private Date checkOutDate;
+    @Enumerated(value = EnumType.STRING)
+    private OrderStatusEnum orderStatusEnum;
+    private Double totalPrice;
+    private Long orderNo;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
+
+    @ToString.Exclude
+    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+     private Payment payment;
+
+}
