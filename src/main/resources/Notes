@@ -1,0 +1,23 @@
+entity-leri tek et +
+response-da id-leri ver+
+eager-deyish,repository-de entitygraph ile +
+@Column-lari sil +
+Impl-leri yaz Heresine ayri interfeys+
+
+GlobalExceptionHandling OrelseThrow de+
+Sl4j-Service Layer logla+
+Service-deki adlandirmalari deyish+
+Validations istifade et +
+CustomerDto-da Bookings list yarat+
+Response ile relation yoxsa Dto ile vermek sorush+ (Optional)
+
+date-Local date deyish+
+service-de Id-ni dinamik ver+
+Exceptionlari vahid exception kimi yarat+
+Biznes mentiqi yarat Customer-e gore bookingleri yarat+
+Controller-de validationu deyish
+App property-yml bax
+1) Garbage collector novleri, ishleme prinsipleri
+2) Heap Memory ishleme prinsipi(Eden survivor young generation, old generation)
+3) Heap Memory-de perm gen nedir ve orada neler saxlanilir
+4) Design patterns(Singleton, Builder, Factory, Abstract factory, Strategy, Proxy, DAO)
