@@ -3,7 +3,7 @@ package com.example.booking_az.service.impl;
 import com.example.booking_az.dto.requestDto.ReviewRequestDto;
 import com.example.booking_az.dto.responseDto.ReviewResponseDto;
 import com.example.booking_az.entity.Review;
-import com.example.booking_az.exception.handler.ReviewNotFoundException;
+import com.example.booking_az.exception.handler.NotFoundException;
 import com.example.booking_az.mapper.ReviewMapper;
 import com.example.booking_az.repository.ReviewRepository;
 import com.example.booking_az.service.ReviewService;
@@ -22,7 +22,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ReviewResponseDto getById(Long id) {
-        Review getReviewById = reviewRepository.findById(id).orElseThrow(()->new ReviewNotFoundException("Review not found with this id"));
+        Review getReviewById = reviewRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("Review not found with this id: "+id));
         ReviewResponseDto getById = reviewMapper.entityToReviewResponseDto(getReviewById);
         log.info("Review deleted with this id", id);
         return getById;
@@ -44,7 +45,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void update(Long id, ReviewRequestDto reviewRequestDto) {
-        Review updatedReview = reviewRepository.findById(id).orElseThrow(()->new ReviewNotFoundException("Review not found with this id"));
+        Review updatedReview = reviewRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("Review not found with this id: "+id));
         reviewMapper.update(updatedReview, reviewRequestDto);
         reviewRepository.save(updatedReview);
         log.info("Review updated with this id: ", id);
@@ -52,7 +54,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void delete(Long id) {
-        Review deletedReview = reviewRepository.findById(id).orElseThrow(()->new ReviewNotFoundException("Review not found with this id"));
+        Review deletedReview = reviewRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("Review not found with this id: "+id));
         reviewRepository.delete(deletedReview);
         log.info("Review deleted with this id: ", id);
     }

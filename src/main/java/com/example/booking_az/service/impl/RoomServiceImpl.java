@@ -3,7 +3,7 @@ package com.example.booking_az.service.impl;
 import com.example.booking_az.dto.requestDto.RoomRequestDto;
 import com.example.booking_az.dto.responseDto.RoomResponseDto;
 import com.example.booking_az.entity.Room;
-import com.example.booking_az.exception.handler.RoomNotFoundException;
+import com.example.booking_az.exception.handler.NotFoundException;
 import com.example.booking_az.mapper.RoomMapper;
 import com.example.booking_az.repository.RoomRepository;
 import com.example.booking_az.service.RoomService;
@@ -22,7 +22,8 @@ public class RoomServiceImpl implements RoomService {
     private final RoomMapper roomMapper;
 
     public RoomResponseDto getById(Long id) {
-        Room getRoomById = roomRepository.findById(id).orElseThrow(()-> new RoomNotFoundException("Room not found with this id"));
+        Room getRoomById = roomRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("Room not found with this id: "+id));
         RoomResponseDto getById = roomMapper.entityToHotelResponseDto(getRoomById);
         log.info("Room invoked with this id",id);
         return getById;
@@ -37,7 +38,8 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void update(Long id, RoomRequestDto roomRequestDto) {
-        Room updatedRoom = roomRepository.findById(id).orElseThrow(()->new RoomNotFoundException("Room not found with this id"));
+        Room updatedRoom = roomRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("Room not found with this id: "+id));
         roomMapper.update(updatedRoom, roomRequestDto);
         roomRepository.save(updatedRoom);
         log.info("Room updated with this id",id);
@@ -45,7 +47,8 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void delete(Long id) {
-        Room deletedRoom = roomRepository.findById(id).orElseThrow(()-> new RoomNotFoundException("Room not found with this id"));
+        Room deletedRoom = roomRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("Room not found with this id: "+id));
         roomRepository.delete(deletedRoom);
         log.info("Room deleted with this id",id);
     }

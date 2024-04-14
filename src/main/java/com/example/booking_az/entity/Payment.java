@@ -1,5 +1,6 @@
 package com.example.booking_az.entity;
 
+import com.example.booking_az.enumaration.PaymentMethodEnum;
 import com.example.booking_az.enumaration.PaymentStatusEnum;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,8 +18,14 @@ public class Payment {
     @Enumerated(value = EnumType.STRING)
     private PaymentStatusEnum paymentStatusEnum;
     private Date paymentDate;
+    @Enumerated(value = EnumType.STRING)
+    private PaymentMethodEnum paymentMethod;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="booking_id",referencedColumnName = "id")
     private Booking booking;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }

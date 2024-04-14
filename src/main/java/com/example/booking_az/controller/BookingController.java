@@ -1,6 +1,7 @@
 package com.example.booking_az.controller;
 
 import com.example.booking_az.dto.requestDto.BookingRequestDto;
+import com.example.booking_az.dto.responseDto.BookingByCustomerDto;
 import com.example.booking_az.dto.responseDto.BookingResponseDto;
 import com.example.booking_az.entity.Booking;
 import com.example.booking_az.service.impl.BookingServiceImpl;
@@ -21,6 +22,11 @@ public class BookingController {
     public BookingResponseDto getById(@PathVariable Long id) {
         BookingResponseDto getById = bookingServiceImpl.getById(id);
         return getById;
+    }
+    @GetMapping("/{id}/byCustomerId")
+    public BookingByCustomerDto getBookingByCustomerId(@PathVariable Long id){
+        BookingByCustomerDto getByCustomerId=bookingServiceImpl.getBookingByCustomerId(id);
+        return getByCustomerId;
     }
 
     @PostMapping

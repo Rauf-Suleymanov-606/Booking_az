@@ -14,4 +14,5 @@ public class CustomerRequestDto {
     @NotEmpty
     private String gender;
     private Long id;
+    private Long hotelId;
 }

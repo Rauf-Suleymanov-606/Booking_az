@@ -22,6 +22,7 @@ public interface HotelMapper {
     @Mapping(source = "id", target = "booking.booking")
     @Mapping(source = "id",target = "room.room")
     @Mapping(source = "id", target = "review.review")
+    @Mapping(source = "id",target = "customer.customer")
     List<HotelResponseDto> entityToHotelResponseDto(List<Hotel> hotel);
 
     @Mapping(source = "id", target = "id")

@@ -3,7 +3,7 @@ package com.example.booking_az.service.impl;
 import com.example.booking_az.dto.requestDto.PaymentRequestDto;
 import com.example.booking_az.dto.responseDto.PaymentResponseDto;
 import com.example.booking_az.entity.Payment;
-import com.example.booking_az.exception.handler.PaymentNotFoundException;
+import com.example.booking_az.exception.handler.NotFoundException;
 import com.example.booking_az.mapper.PaymentMapper;
 import com.example.booking_az.repository.PaymentRepository;
 import com.example.booking_az.service.PaymentService;
@@ -22,7 +22,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentResponseDto getById(Long id) {
-        Payment getPaymentById = paymentRepository.findById(id).orElseThrow(() -> new PaymentNotFoundException("Payment not found with this id"));
+        Payment getPaymentById = paymentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Payment not found with this id: "+id));
         PaymentResponseDto getById = paymentMapper.entityToPaymentResponseDto(getPaymentById);
         log.info("Payment invoked with this id: ", id);
         return getById;
@@ -43,7 +44,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public void update(Long id, PaymentRequestDto paymentRequestDto) {
-        Payment updatedPayment = paymentRepository.findById(id).orElseThrow(() -> new PaymentNotFoundException("Payment not found with this id"));
+        Payment updatedPayment = paymentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Payment not found with this id: "+id));
         paymentMapper.update(updatedPayment, paymentRequestDto);
         paymentRepository.save(updatedPayment);
         log.info("Payment updated with this id: ", id);
@@ -52,7 +54,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public void delete(Long id) {
-        Payment deletedPayment = paymentRepository.findById(id).orElseThrow(() -> new PaymentNotFoundException("Payment not found with this id"));
+        Payment deletedPayment = paymentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Payment not found with this id: "+id));
         paymentRepository.delete(deletedPayment);
         log.info("Payment deleted with this id: ", id);
     }

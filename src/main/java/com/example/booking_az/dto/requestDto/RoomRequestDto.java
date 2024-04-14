@@ -7,7 +7,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+
 @Data
+
 public class RoomRequestDto {
     @Enumerated(EnumType.STRING)
     private RoomTypeEnum roomType;

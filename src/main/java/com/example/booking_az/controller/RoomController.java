@@ -1,5 +1,6 @@
 package com.example.booking_az.controller;
 
+import com.example.booking_az.dto.requestDto.CustomerRequestDto;
 import com.example.booking_az.dto.requestDto.HotelRequestDto;
 import com.example.booking_az.dto.requestDto.RoomRequestDto;
 import com.example.booking_az.dto.responseDto.RoomResponseDto;
@@ -30,17 +31,19 @@ public class RoomController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> add(@Valid @RequestBody RoomRequestDto roomRequestDto,  BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            StringBuilder errorMsg = new StringBuilder("Validation error(s): ");
-            for (FieldError error : errors) {
-                errorMsg.append(error.getDefaultMessage()).append("; ");
-            }
-            return ResponseEntity.badRequest().body(errorMsg);
-        }
-        roomServiceImpl.add(roomRequestDto);
-        return ResponseEntity.ok().body("Room succesfully added");
+    public ResponseEntity<Room> add(@Valid @RequestBody RoomRequestDto roomRequestDto) {
+      return ResponseEntity.status(HttpStatus.CREATED).body(roomServiceImpl.add(roomRequestDto));
+
+//        if (bindingResult.hasErrors()) {
+//            List<FieldError> errors = bindingResult.getFieldErrors();
+//            StringBuilder errorMsg = new StringBuilder("Validation error(s): ");
+//            for (FieldError error : errors) {
+//                errorMsg.append(error.getDefaultMessage()).append("; ");
+//            }
+//            return ResponseEntity.badRequest().body(errorMsg);
+//        }
+//        roomServiceImpl.add(roomRequestDto);
+//        return ResponseEntity.ok().body("Room succesfully added");
     }
 
     @PutMapping("/{id}")

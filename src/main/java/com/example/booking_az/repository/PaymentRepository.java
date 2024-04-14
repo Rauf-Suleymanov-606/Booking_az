@@ -10,6 +10,5 @@ import java.util.Optional;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment,Long> {
     @EntityGraph(attributePaths = "booking")
-    @Override
     Optional<Payment> findById(Long id);
 }

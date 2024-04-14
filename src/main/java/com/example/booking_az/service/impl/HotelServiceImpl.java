@@ -3,7 +3,7 @@ package com.example.booking_az.service.impl;
 import com.example.booking_az.dto.requestDto.HotelRequestDto;
 import com.example.booking_az.dto.responseDto.HotelResponseDto;
 import com.example.booking_az.entity.Hotel;
-import com.example.booking_az.exception.handler.HotelNotFoundException;
+import com.example.booking_az.exception.handler.NotFoundException;
 import com.example.booking_az.mapper.HotelMapper;
 import com.example.booking_az.repository.HotelRepository;
 import com.example.booking_az.service.HotelService;
@@ -23,7 +23,8 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public HotelResponseDto getById(Long id) {
-        Hotel getHotelById = hotelRepository.findById(id).orElseThrow(()-> new HotelNotFoundException("Hotel not found with this id"));
+        Hotel getHotelById = hotelRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("Hotel not found with this id: "+id));
         HotelResponseDto hotelResponseDto = hotelMapper.entityToHotelResponseDto(getHotelById);
         log.info("Hotel invoked with this id= ",id);
         return hotelResponseDto;
@@ -38,7 +39,8 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public void update(Long id, HotelRequestDto hotelRequestDto) {
-        Hotel updatedHotel = hotelRepository.findById(id).orElseThrow(()-> new HotelNotFoundException("Hotel not found with this id"));
+        Hotel updatedHotel = hotelRepository.findById(id).orElseThrow(()-> new NotFoundException
+                        ("Hotel not found with this id: "+id));
         hotelMapper.update(updatedHotel, hotelRequestDto);
         hotelRepository.save(updatedHotel);
         log.info("Hotel updated with this id= ",id);
@@ -46,7 +48,8 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public void delete(Long id) {
-        Hotel deletedHotel = hotelRepository.findById(id).orElseThrow(()->new HotelNotFoundException("Hotel not found with this id"));
+        Hotel deletedHotel = hotelRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("Hotel not found with this id: "+id));
         hotelRepository.delete(deletedHotel);
         log.info("Hotel deleted with this id= ",id);
     }
@@ -57,4 +60,5 @@ public class HotelServiceImpl implements HotelService {
         List<HotelResponseDto> hotelResponseDto = hotelMapper.entityToHotelResponseDto(hotelList);
         return hotelResponseDto;
     }
+
 }

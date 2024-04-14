@@ -21,6 +21,7 @@ public class HotelResponseDto {
     private List<BookingDto> booking;
     private List<RoomDto> room;
     private List<ReviewDto> review;
+    private List<CustomerDto> customer;
     @Data
     public static class BookingDto {
         private Long id;
@@ -49,6 +50,16 @@ public class HotelResponseDto {
         private Double rating;
         private String comment;
         private Date dateCreated;
+
+    }
+    @Data
+    public static class CustomerDto{
+        private Long id;
+        private String name;
+        private String surname;
+        private String nationality;
+        private String email;
+        private String gender;
 
     }
 }

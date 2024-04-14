@@ -1,5 +1,6 @@
 package com.example.booking_az.mapper;
 
+
 import com.example.booking_az.dto.requestDto.BookingRequestDto;
 import com.example.booking_az.dto.responseDto.BookingResponseDto;
 import com.example.booking_az.entity.Booking;
@@ -13,12 +14,17 @@ import java.util.List;
 public interface BookingMapper {
     @Mapping(source = "customerId", target = "customer.id")
     Booking bookingRequestDtoToEntity(BookingRequestDto bookingRequestDto);
+    BookingResponseDto entityToBookingResponseDto(Booking booking);
 
-    BookingResponseDto entityToBookingResponseDto(Booking bookings);
 
     @Mapping(source = "customerId", target = "customer.customer")
     List<BookingResponseDto> entityToBookingResponseDto(List<Booking> booking);
 
     @Mapping(source = "customerId", target = "customer.id")
     void update(@MappingTarget Booking booking, BookingRequestDto bookingRequestDto);
-}
+
+
+    }
+
+
+

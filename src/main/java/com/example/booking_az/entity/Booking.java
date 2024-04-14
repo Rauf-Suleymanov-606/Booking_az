@@ -1,11 +1,13 @@
 package com.example.booking_az.entity;
 
 import com.example.booking_az.enumaration.OrderStatusEnum;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,8 +17,8 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date checkInDate;
-    private Date checkOutDate;
+    private LocalDate checkInDate;
+    private LocalDate checkOutDate;
     @Enumerated(value = EnumType.STRING)
     private OrderStatusEnum orderStatusEnum;
     private Double totalPrice;

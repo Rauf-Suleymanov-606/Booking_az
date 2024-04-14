@@ -33,4 +33,8 @@ public class Hotel {
     @PrimaryKeyJoinColumn
     private List<Review> review;
 
+    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private List<Customer> customer;
+
 }

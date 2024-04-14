@@ -31,8 +31,8 @@ public class Application implements CommandLineRunner {
 //        Rooms rooms= roomRepository.findById(1L).orElseThrow();
 //        log.info("rooms: {}",rooms);
 
-        Booking bookings= bookingRepository.findById(1L).get();
-        log.info("bookings: {}",bookings);
+//        Booking bookings= bookingRepository.findById(1L).get();
+//        log.info("bookings: {}",bookings);
 
 //        Bookings entity = new Bookings();
 //        entity.setOrderStatusEnum(OrderStatusEnum.PENDING);

@@ -16,4 +16,5 @@ public class PaymentRequestDto {
     private PaymentStatusEnum paymentStatusEnum;
     private Date paymentDate;
     private Long bookingId;
+    private Long customerId;
 }

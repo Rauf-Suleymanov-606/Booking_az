@@ -1,7 +1,9 @@
 package com.example.booking_az.controller;
 
+
 import com.example.booking_az.dto.requestDto.CustomerRequestDto;
 import com.example.booking_az.dto.responseDto.CustomerResponseDto;
+import com.example.booking_az.dto.responseDto.HotelResponseDto;
 import com.example.booking_az.entity.projection.CustomerProjection;
 import com.example.booking_az.service.impl.CustomerServiceImpl;
 import jakarta.validation.Valid;
@@ -20,8 +22,7 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerServiceImpl customerService;
-
-    @GetMapping("/{customerId}/{id}")
+    @GetMapping("/{id}")
     public CustomerResponseDto getById(@PathVariable Long id) {
         CustomerResponseDto getById = customerService.getById(id);
         return getById;
@@ -59,7 +60,7 @@ public class CustomerController {
         return customerList;
     }
 
-    @GetMapping(value = "/{getByNationality}/{nationality}", produces = "application/json")
+    @GetMapping("/{nationality}/customers")
     public List<CustomerProjection> getNameByNationality(@PathVariable String nationality) {
         List<CustomerProjection> customerInfo = customerService.getNameByNationality(nationality);
         return customerInfo;

@@ -7,6 +7,7 @@ public interface CustomerProjection {
     String getSurname();
     String getNationality();
 
+
 }
 
 

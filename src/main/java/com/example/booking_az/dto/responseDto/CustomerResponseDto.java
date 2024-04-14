@@ -1,8 +1,6 @@
 package com.example.booking_az.dto.responseDto;
 
-import com.example.booking_az.enumaration.OrderStatusEnum;
-import com.example.booking_az.enumaration.RoomStatusEnum;
-import com.example.booking_az.enumaration.RoomTypeEnum;
+import com.example.booking_az.enumaration.*;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;
@@ -20,6 +18,8 @@ public class CustomerResponseDto {
     private String gender;
     private List<BookingDto> booking;
     private List<RoomDto> room;
+    private HotelDto hotel;
+    private List<PaymentDto> payment;
 
     @Data
     public static class BookingDto {
@@ -42,6 +42,26 @@ public class CustomerResponseDto {
         @Enumerated(EnumType.STRING)
         private RoomStatusEnum roomStatus;
         private Integer roomNo;
+    }
+
+    @Data
+    public static class HotelDto {
+        private Long id;
+        private String name;
+        private String starRating;
+        private String city;
+        private String street;
+        private Integer roomCount;
+    }
+
+    @Data
+    public static class PaymentDto {
+        private Double amount;
+        @Enumerated(value = EnumType.STRING)
+        private PaymentStatusEnum paymentStatusEnum;
+        private Date paymentDate;
+        @Enumerated(value = EnumType.STRING)
+        private PaymentMethodEnum paymentMethod;
     }
 
 }
