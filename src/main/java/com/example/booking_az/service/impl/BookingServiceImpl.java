@@ -37,7 +37,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingByCustomerDto getBookingByCustomerId(Long id) {
-        Customer getBookingById=customerRepository.findById(id).orElseThrow();
+        Customer getBookingById=customerRepository.findById(id).orElseThrow(()-> new NotFoundException("Booking not found with this id:"+id));
         BookingByCustomerDto getByCustomer=customerMapper.customerToBookingByCustomer(getBookingById);
         return getByCustomer;
     }

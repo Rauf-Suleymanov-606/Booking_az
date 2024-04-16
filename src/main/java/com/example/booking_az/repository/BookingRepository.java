@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface BookingRepository extends JpaRepository<Booking,Long> {
     @EntityGraph(attributePaths = "customer")
     Optional<Booking> findById(Long id);
+
+
 }
 
 

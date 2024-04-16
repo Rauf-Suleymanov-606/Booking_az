@@ -60,7 +60,7 @@ public class CustomerController {
         return customerList;
     }
 
-    @GetMapping("/{nationality}/customers")
+    @GetMapping("/{nationality}/customers")//create exception
     public List<CustomerProjection> getNameByNationality(@PathVariable String nationality) {
         List<CustomerProjection> customerInfo = customerService.getNameByNationality(nationality);
         return customerInfo;

@@ -1,9 +1,8 @@
 package com.example.booking_az.controller;
 
-import com.example.booking_az.dto.requestDto.CustomerRequestDto;
 import com.example.booking_az.dto.requestDto.HotelRequestDto;
+import com.example.booking_az.dto.responseDto.HotelByRatingDto;
 import com.example.booking_az.dto.responseDto.HotelResponseDto;
-import com.example.booking_az.entity.Hotel;
 import com.example.booking_az.service.impl.HotelServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +26,10 @@ public class HotelController {
         HotelResponseDto getById = hotelServiceImpl.getById(id);
         return ResponseEntity.ok().body(getById);
 
+    }
+    @GetMapping("/{id}/ByRating")
+    public List<HotelByRatingDto> getHotelsByRating(Double rating){
+        return hotelServiceImpl.getHotelsByRating(rating);
     }
 
     @PostMapping
