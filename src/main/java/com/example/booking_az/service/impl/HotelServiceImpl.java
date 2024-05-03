@@ -5,6 +5,7 @@ import com.example.booking_az.dto.responseDto.HotelByRatingDto;
 import com.example.booking_az.dto.responseDto.HotelResponseDto;
 import com.example.booking_az.entity.Hotel;
 import com.example.booking_az.entity.Review;
+import com.example.booking_az.entity.projection.HotelProjection;
 import com.example.booking_az.exception.handler.NotFoundException;
 import com.example.booking_az.mapper.HotelMapper;
 import com.example.booking_az.mapper.ReviewMapper;
@@ -32,15 +33,15 @@ public class HotelServiceImpl implements HotelService {
         Hotel getHotelById = hotelRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Hotel not found with this id: " + id));
         HotelResponseDto hotelResponseDto = hotelMapper.entityToHotelResponseDto(getHotelById);
-        log.info("Hotel invoked with this id= ", id);
+        log.info("Hotel invoked with this id= {}", id);
         return hotelResponseDto;
 
     }
 
 
     @Override
-    public List<HotelByRatingDto> getHotelsByRating(Double rating) {
-        List<Review> getByRating = reviewRepository.findByRatingGreaterThanEqual(rating);
+    public List<HotelByRatingDto> getHotelsByReviewRating(Double reviewRating) {
+        List<Review> getByRating = reviewRepository.findByRatingGreaterThanEqual(reviewRating);
         if (getByRating.isEmpty()) {
             throw new NotFoundException("Hotel not found with this rating degree");
         } else {
@@ -50,8 +51,21 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    public List<HotelProjection> getHotelsByStarRating(String starRating) {
+         List<HotelProjection> getHotelsByRating= hotelRepository.findByStarRating(starRating);
+         if(getHotelsByRating.isEmpty()){
+             throw new NotFoundException("Hotel not found with this star rating");
+
+         }else {
+             return getHotelsByRating;
+         }
+
+    }
+
+    @Override
     public Hotel add(HotelRequestDto hotelRequestDto) {
         Hotel hotel = hotelMapper.hotelRequestDtoToEntity(hotelRequestDto);
+        log.info("Hotel succesfully added= {}");
         return hotelRepository.save(hotel);
     }
 
@@ -61,7 +75,7 @@ public class HotelServiceImpl implements HotelService {
                 ("Hotel not found with this id: " + id));
         hotelMapper.update(updatedHotel, hotelRequestDto);
         hotelRepository.save(updatedHotel);
-        log.info("Hotel updated with this id= ", id);
+        log.info("Hotel updated with this id= {}", id);
     }
 
     @Override
@@ -69,7 +83,7 @@ public class HotelServiceImpl implements HotelService {
         Hotel deletedHotel = hotelRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Hotel not found with this id: " + id));
         hotelRepository.delete(deletedHotel);
-        log.info("Hotel deleted with this id= ", id);
+        log.info("Hotel deleted with this id= {}", id);
     }
 
     @Override

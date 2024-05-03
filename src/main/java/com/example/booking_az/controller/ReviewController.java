@@ -27,25 +27,26 @@ public class ReviewController {
     }
 
     @GetMapping
-    public List<ReviewResponseDto> getAll() {
+    public ResponseEntity<List<ReviewResponseDto>> getAll() {
         List<ReviewResponseDto> reviewList = reviewServiceImpl.getAll();
-        return reviewList;
+        return ResponseEntity.ok().body(reviewList);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Review add(@RequestBody ReviewRequestDto reviewRequestDto){
-     return reviewServiceImpl.add(reviewRequestDto);
+    public Review add(@RequestBody ReviewRequestDto reviewRequestDto) {
+        return reviewServiceImpl.add(reviewRequestDto);
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public void update(@PathVariable Long id, @RequestBody ReviewRequestDto reviewRequestDto) {
         reviewServiceImpl.update(id, reviewRequestDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(Long id) {
         reviewServiceImpl.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

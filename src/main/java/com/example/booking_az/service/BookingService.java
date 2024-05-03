@@ -19,4 +19,5 @@ public interface BookingService {
     void delete(Long id);
 
     List<BookingResponseDto> getAll();
+
 }

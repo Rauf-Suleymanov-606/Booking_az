@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -71,6 +72,13 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> bookingList = bookingRepository.findAll();
         List<BookingResponseDto> bookingResponseDtos = bookingMapper.entityToBookingResponseDto(bookingList);
         return bookingResponseDtos;
+    }
+
+    @Override
+    public List<BookingResponseDto> getBookingPeriodEndedBookings() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        List<BookingResponseDto> bookings = bookingRepository.findBookingByCheckOutDate(localDateTime);
+        return bookings ;
     }
 
 

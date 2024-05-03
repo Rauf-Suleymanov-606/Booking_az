@@ -3,6 +3,7 @@ package com.example.booking_az.controller;
 import com.example.booking_az.dto.requestDto.HotelRequestDto;
 import com.example.booking_az.dto.responseDto.HotelByRatingDto;
 import com.example.booking_az.dto.responseDto.HotelResponseDto;
+import com.example.booking_az.entity.projection.HotelProjection;
 import com.example.booking_az.service.impl.HotelServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +28,15 @@ public class HotelController {
         return ResponseEntity.ok().body(getById);
 
     }
-    @GetMapping("/{id}/ByRating")
-    public List<HotelByRatingDto> getHotelsByRating(Double rating){
-        return hotelServiceImpl.getHotelsByRating(rating);
+
+    @GetMapping("/{reviewRating}/ByReviewRating")
+    public ResponseEntity<List<HotelByRatingDto>> getHotelsByReviewRating(@PathVariable Double reviewRating) {
+        return ResponseEntity.ok().body(hotelServiceImpl.getHotelsByReviewRating(reviewRating));
+    }
+
+    @GetMapping("/{starRating}/ByStarRating")
+    public ResponseEntity<List<HotelProjection>> getHotelsByStarRating(@PathVariable String starRating) {
+        return ResponseEntity.ok().body(hotelServiceImpl.getHotelsByStarRating(starRating));
     }
 
     @PostMapping
@@ -47,19 +54,20 @@ public class HotelController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public void update(@PathVariable Long id, @RequestBody HotelRequestDto hotelRequestDto) {
         hotelServiceImpl.update(id, hotelRequestDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
         hotelServiceImpl.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping
-    public List<HotelResponseDto> getAllHotels() {
+    public ResponseEntity<List<HotelResponseDto>> getAllHotels() {
         List<HotelResponseDto> hotelList = hotelServiceImpl.getAll();
-        return hotelList;
+        return ResponseEntity.ok().body(hotelList);
     }
 }

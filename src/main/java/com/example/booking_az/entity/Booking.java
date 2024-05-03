@@ -38,4 +38,7 @@ public class Booking {
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
      private Payment payment;
 
+    @ToString.Exclude
+    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Room room;
 }

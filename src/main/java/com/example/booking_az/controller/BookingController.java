@@ -7,6 +7,7 @@ import com.example.booking_az.entity.Booking;
 import com.example.booking_az.service.impl.BookingServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,14 +20,14 @@ public class BookingController {
     private final BookingServiceImpl bookingServiceImpl;
 
     @GetMapping("/{id}")
-    public BookingResponseDto getById(@PathVariable Long id) {
+    public ResponseEntity<BookingResponseDto> getById(@PathVariable Long id) {
         BookingResponseDto getById = bookingServiceImpl.getById(id);
-        return getById;
+        return ResponseEntity.ok().body(getById);
     }
     @GetMapping("/{id}/byCustomerId")
-    public BookingByCustomerDto getBookingByCustomerId(@PathVariable Long id){
+    public ResponseEntity< BookingByCustomerDto> getBookingByCustomerId(@PathVariable Long id){
         BookingByCustomerDto getByCustomerId=bookingServiceImpl.getBookingByCustomerId(id);
-        return getByCustomerId;
+        return ResponseEntity.ok().body(getByCustomerId);
     }
 
     @PostMapping
@@ -36,8 +37,10 @@ public class BookingController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public void update(@PathVariable Long id, @RequestBody BookingRequestDto bookingRequestDto) {
         bookingServiceImpl.update(id, bookingRequestDto);
+
     }
 
     @DeleteMapping("/{id}")
@@ -47,6 +50,7 @@ public class BookingController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<BookingResponseDto> getAll() {
         List<BookingResponseDto> bookingList = bookingServiceImpl.getAll();
         return bookingList;

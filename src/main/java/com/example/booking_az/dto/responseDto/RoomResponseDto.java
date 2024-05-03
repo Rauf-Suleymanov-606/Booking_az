@@ -1,10 +1,13 @@
 package com.example.booking_az.dto.responseDto;
 
+import com.example.booking_az.enumaration.OrderStatusEnum;
 import com.example.booking_az.enumaration.RoomStatusEnum;
 import com.example.booking_az.enumaration.RoomTypeEnum;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 public class RoomResponseDto {
@@ -17,6 +20,7 @@ public class RoomResponseDto {
     private Integer roomNo;
     private CustomerDto customer;
     private HotelDto hotel;
+    private BookingDto booking;
 
     @Data
     public static class CustomerDto {
@@ -37,5 +41,15 @@ public class RoomResponseDto {
         private String city;
         private String street;
         private Integer roomCount;
+    }
+
+    @Data
+    public static class BookingDto {
+        private LocalDate checkInDate;
+        private LocalDate checkOutDate;
+        @Enumerated(value = EnumType.STRING)
+        private OrderStatusEnum orderStatusEnum;
+        private Double totalPrice;
+        private Long orderNo;
     }
 }

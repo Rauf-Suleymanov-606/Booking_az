@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface RoomRepository extends JpaRepository<Room,Long> {
+public interface RoomRepository extends JpaRepository<Room, Long> {
     @EntityGraph(attributePaths = "customer")
     Optional<Room> findById(Long id);
 }

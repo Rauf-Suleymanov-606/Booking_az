@@ -19,6 +19,7 @@ public class PaymentResponseDto {
     @Enumerated(value = EnumType.STRING)
     private PaymentMethodEnum paymentMethod;
     private BookingDto booking;
+    private CustomerDto customer;
 
     @Data
     public static class BookingDto {
@@ -28,6 +29,14 @@ public class PaymentResponseDto {
         private Double totalPrice;
         private Long orderNo;
 
+    }
+    @Data
+    public static class CustomerDto{
+        private String name;
+        private String surname;
+        private String nationality;
+        private String email;
+        private String gender;
     }
 
 }

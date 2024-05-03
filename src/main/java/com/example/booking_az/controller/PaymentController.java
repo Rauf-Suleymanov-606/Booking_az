@@ -24,9 +24,9 @@ public class PaymentController {
     }
 
     @GetMapping
-    public List<PaymentResponseDto> getAll() {
+    public ResponseEntity<List<PaymentResponseDto>> getAll() {
         List<PaymentResponseDto> paymentList = paymentServiceImpl.getAll();
-        return paymentList;
+        return ResponseEntity.ok().body(paymentList);
     }
 
     @PostMapping
@@ -36,15 +36,15 @@ public class PaymentController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public void update(@PathVariable Long id, PaymentRequestDto paymentRequestDto) {
         paymentServiceImpl.update(id, paymentRequestDto);
-
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
         paymentServiceImpl.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

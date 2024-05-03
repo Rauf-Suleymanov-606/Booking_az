@@ -25,14 +25,14 @@ public class RoomController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RoomResponseDto> getById(@PathVariable Long id) {
-        RoomResponseDto getById=roomServiceImpl.getById(id);
+        RoomResponseDto getById = roomServiceImpl.getById(id);
         return ResponseEntity.ok().body(getById);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Room> add(@Valid @RequestBody RoomRequestDto roomRequestDto) {
-      return ResponseEntity.status(HttpStatus.CREATED).body(roomServiceImpl.add(roomRequestDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(roomServiceImpl.add(roomRequestDto));
 
 //        if (bindingResult.hasErrors()) {
 //            List<FieldError> errors = bindingResult.getFieldErrors();
@@ -47,8 +47,9 @@ public class RoomController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public void update(@PathVariable Long id, @RequestBody RoomRequestDto roomRequestDto) {
-        roomServiceImpl.update(id,roomRequestDto);
+        roomServiceImpl.update(id, roomRequestDto);
     }
 
     @DeleteMapping("/{id}")
@@ -58,8 +59,8 @@ public class RoomController {
     }
 
     @GetMapping
-    public List<RoomResponseDto> getAll() {
-        List<RoomResponseDto> roomList=roomServiceImpl.getAll();
-        return roomList;
+    public ResponseEntity<List<RoomResponseDto>> getAll() {
+        List<RoomResponseDto> roomList = roomServiceImpl.getAll();
+        return ResponseEntity.ok().body(roomList);
     }
 }

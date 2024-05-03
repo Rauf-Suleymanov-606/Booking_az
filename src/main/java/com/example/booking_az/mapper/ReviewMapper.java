@@ -17,12 +17,11 @@ public interface ReviewMapper {
     List<HotelByRatingDto> reviewToHotelsByRatingDto(List<Review> review);
 
 
-    @Mapping(source = "hotelId", target = "hotel.hotel")
     List<ReviewResponseDto> entityToReviewResponseDto(List<Review> review);
 
-    @Mapping(source = "hotelId", target = "hotel.id")
+
     Review reviewRequestDtoToEntity(ReviewRequestDto reviewRequestDto);
 
-    @Mapping(source = "hotelId", target = "hotel.id")
+
     void update(@MappingTarget Review review, ReviewRequestDto reviewRequestDto);
 }

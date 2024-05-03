@@ -13,18 +13,12 @@ import java.util.List;
 public interface HotelMapper {
 
 
-    @Mapping(source = "id", target = "id")
     Hotel hotelRequestDtoToEntity(HotelRequestDto hotelRequestDto);
 
     HotelResponseDto entityToHotelResponseDto(Hotel hotel);
 
 
-    @Mapping(source = "id", target = "booking.booking")
-    @Mapping(source = "id",target = "room.room")
-    @Mapping(source = "id", target = "review.review")
-    @Mapping(source = "id",target = "customer.customer")
     List<HotelResponseDto> entityToHotelResponseDto(List<Hotel> hotel);
 
-    @Mapping(source = "id", target = "id")
     void update(@MappingTarget Hotel hotel, HotelRequestDto hotelRequestDto);
 }

@@ -29,4 +29,8 @@ public class Room {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="booking_id",referencedColumnName = "id")
+    private Booking booking;
 }

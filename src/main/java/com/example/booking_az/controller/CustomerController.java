@@ -22,10 +22,11 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerServiceImpl customerService;
+
     @GetMapping("/{id}")
-    public CustomerResponseDto getById(@PathVariable Long id) {
+    public ResponseEntity<CustomerResponseDto> getById(@PathVariable Long id) {
         CustomerResponseDto getById = customerService.getById(id);
-        return getById;
+        return ResponseEntity.ok().body(getById);
     }
 
     @PostMapping
@@ -44,6 +45,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public void update(@PathVariable Long id, @RequestBody CustomerRequestDto customerRequestDto) {
         customerService.update(id, customerRequestDto);
     }
@@ -55,15 +57,15 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<CustomerResponseDto> getAll() {
+    public ResponseEntity<List<CustomerResponseDto>> getAll() {
         List<CustomerResponseDto> customerList = customerService.getAll();
-        return customerList;
+        return ResponseEntity.ok(customerList);
     }
 
     @GetMapping("/{nationality}/customers")//create exception
-    public List<CustomerProjection> getNameByNationality(@PathVariable String nationality) {
+    public ResponseEntity<List<CustomerProjection>> getNameByNationality(@PathVariable String nationality) {
         List<CustomerProjection> customerInfo = customerService.getNameByNationality(nationality);
-        return customerInfo;
+        return ResponseEntity.ok().body(customerInfo);
     }
 
 }

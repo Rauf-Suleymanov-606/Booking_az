@@ -59,4 +59,9 @@ public class RoomServiceImpl implements RoomService {
         List<RoomResponseDto> roomList = roomMapper.entityToHotelResponseDto(room);
         return roomList;
     }
+
+    @Override
+    public Room getRoomById(Long id) {
+        return roomRepository.findRoomById(id);
+    }
 }

@@ -12,12 +12,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface RoomMapper {
     RoomResponseDto entityToHotelResponseDto(Room room);
-    @Mapping(source = "customerId", target = "customer.customer")
-    @Mapping(source = "customerId", target = "hotel.hotel")
+
     List<RoomResponseDto> entityToHotelResponseDto(List<Room> room);
-    @Mapping(source = "customerId", target = "customer.id")
+
     Room roomRequestDtoToEntity(RoomRequestDto roomRequestDto);
 
-    @Mapping(source = "customerId", target = "customer.id")
+
     void update(@MappingTarget Room room, RoomRequestDto roomRequestDto);
 }
