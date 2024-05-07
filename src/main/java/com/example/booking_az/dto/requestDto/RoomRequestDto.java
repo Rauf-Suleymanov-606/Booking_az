@@ -13,10 +13,10 @@ import lombok.Data;
 public class RoomRequestDto {
     @Enumerated(EnumType.STRING)
     private RoomTypeEnum roomType;
-    @NotNull(message = "Can not be null!")
     private Double pricePerNight;
     @Enumerated(EnumType.STRING)
     private RoomStatusEnum roomStatus;
+    @NotNull(message = "Room number can not be null!")
     private Integer roomNo;
     private Long customerId;
     private Long hotelId;

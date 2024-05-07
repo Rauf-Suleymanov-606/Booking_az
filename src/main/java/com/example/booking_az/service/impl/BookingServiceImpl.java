@@ -74,12 +74,4 @@ public class BookingServiceImpl implements BookingService {
         return bookingResponseDtos;
     }
 
-    @Override
-    public List<BookingResponseDto> getBookingPeriodEndedBookings() {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        List<BookingResponseDto> bookings = bookingRepository.findBookingByCheckOutDate(localDateTime);
-        return bookings ;
-    }
-
-
 }

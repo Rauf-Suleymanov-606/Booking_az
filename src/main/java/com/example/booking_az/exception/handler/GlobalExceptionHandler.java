@@ -19,11 +19,15 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(notFoundException.getMessage(), details);
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity <ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex){
+        List<String> validationErrors= new ArrayList<>();
+        ex.getBindingResult().getAllErrors().forEach((error)->{
+          String errorMessage=error.getDefaultMessage();
+          validationErrors.add(errorMessage);
+        });
+        ErrorResponse response=new ErrorResponse(ex.getMessage(),validationErrors);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
 }
-//    public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException ex) {
-//        List<ErrorResponse> errorResponse = ex.getBindingResult()
-//                .getFieldErrors()
-//                .stream()
-//                .map(error -> new ErrorResponse(error.getField())
-//                .collect(Collectors.toList());
-//}

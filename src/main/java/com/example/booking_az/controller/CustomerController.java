@@ -5,6 +5,7 @@ import com.example.booking_az.dto.requestDto.CustomerRequestDto;
 import com.example.booking_az.dto.responseDto.CustomerResponseDto;
 import com.example.booking_az.dto.responseDto.HotelResponseDto;
 import com.example.booking_az.entity.projection.CustomerProjection;
+import com.example.booking_az.exception.ErrorResponse;
 import com.example.booking_az.service.impl.CustomerServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,18 +31,9 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<?> add(@Valid @RequestBody CustomerRequestDto customerRequestDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            StringBuilder errorMsg = new StringBuilder("Validation error(s): ");
-            for (FieldError error : errors) {
-                errorMsg.append(error.getDefaultMessage()).append("; ");
-            }
-            return ResponseEntity.badRequest().body(errorMsg);
-        }
-
+    public ResponseEntity<ErrorResponse> add(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
         customerService.add(customerRequestDto);
-        return ResponseEntity.ok().body("Customer successfully added ");
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")

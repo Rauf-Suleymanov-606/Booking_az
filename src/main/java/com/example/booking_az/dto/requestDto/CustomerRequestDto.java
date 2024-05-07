@@ -9,9 +9,9 @@ public class CustomerRequestDto {
     private String name;
     private String surname;
     private String nationality;
-    @Email(message = "Invalid email format")
+    @Email(message = "Please, properly fulfill the email address!")
     private String email;
-    @NotEmpty
+    @NotEmpty(message = "Gender can not be empty!")
     private String gender;
     private Long id;
     private Long hotelId;

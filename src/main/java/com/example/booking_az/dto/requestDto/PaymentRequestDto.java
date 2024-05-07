@@ -1,6 +1,7 @@
 package com.example.booking_az.dto.requestDto;
 
 import com.example.booking_az.entity.Booking;
+import com.example.booking_az.enumaration.PaymentMethodEnum;
 import com.example.booking_az.enumaration.PaymentStatusEnum;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,6 +16,8 @@ public class PaymentRequestDto {
     @Enumerated(value = EnumType.STRING)
     private PaymentStatusEnum paymentStatusEnum;
     private Date paymentDate;
+    @Enumerated(value = EnumType.STRING)
+    private PaymentMethodEnum paymentMethodEnum;
     private Long bookingId;
     private Long customerId;
 }

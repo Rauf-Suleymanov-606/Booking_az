@@ -3,6 +3,7 @@ package com.example.booking_az.controller;
 import com.example.booking_az.dto.requestDto.ReviewRequestDto;
 import com.example.booking_az.dto.responseDto.ReviewResponseDto;
 import com.example.booking_az.entity.Review;
+import com.example.booking_az.exception.ErrorResponse;
 import com.example.booking_az.service.impl.ReviewServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,9 +34,9 @@ public class ReviewController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Review add(@RequestBody ReviewRequestDto reviewRequestDto) {
-        return reviewServiceImpl.add(reviewRequestDto);
+    public ResponseEntity<ErrorResponse> add(@Valid@RequestBody ReviewRequestDto reviewRequestDto) {
+         reviewServiceImpl.add(reviewRequestDto);
+         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
