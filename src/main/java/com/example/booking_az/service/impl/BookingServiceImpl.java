@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,21 +24,21 @@ public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
-    private  final CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
 
     @Override
     public BookingResponseDto getById(Long id) {
         Booking getById = bookingRepository.findById(id)
-                .orElseThrow(()-> new NotFoundException("Booking not found with this id: "+id));
+                .orElseThrow(() -> new NotFoundException("Booking not found with this id: " + id));
         BookingResponseDto bookingResponseDto = bookingMapper.entityToBookingResponseDto(getById);
         return bookingResponseDto;
     }
 
     @Override
     public BookingByCustomerDto getBookingByCustomerId(Long id) {
-        Customer getBookingById=customerRepository.findById(id).orElseThrow(()-> new NotFoundException("Booking not found with this id:"+id));
-        BookingByCustomerDto getByCustomer=customerMapper.customerToBookingByCustomer(getBookingById);
+        Customer getBookingById = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Booking not found with this id:" + id));
+        BookingByCustomerDto getByCustomer = customerMapper.customerToBookingByCustomer(getBookingById);
         return getByCustomer;
     }
 
@@ -53,7 +52,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void update(Long id, BookingRequestDto bookingRequestDto) {
         Booking updatedBooking = bookingRepository.findById(id)
-                .orElseThrow(()->new NotFoundException("Booking not found with this id "+id));
+                .orElseThrow(() -> new NotFoundException("Booking not found with this id " + id));
         bookingMapper.update(updatedBooking, bookingRequestDto);
         bookingRepository.save(updatedBooking);
         log.info("Booking updated with this id= " + id);
@@ -62,7 +61,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void delete(Long id) {
         Booking deletedBooking = bookingRepository.findById(id)
-                .orElseThrow(()-> new NotFoundException("Booking not found with this id "+id));
+                .orElseThrow(() -> new NotFoundException("Booking not found with this id " + id));
         bookingRepository.delete(deletedBooking);
         log.info("Booking deleted with this id= ", id);
     }

@@ -24,21 +24,21 @@ public class Booking {
     private Double totalPrice;
     private Long orderNo;
 
-    @ToString.Exclude
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @ToString.Exclude
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    @ToString.Exclude
+
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
      private Payment payment;
 
-    @ToString.Exclude
+
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Room room;
 }

@@ -15,4 +15,5 @@ public class CustomerRequestDto {
     private String gender;
     private Long id;
     private Long hotelId;
+    private Long paymentId;
 }

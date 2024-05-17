@@ -2,7 +2,6 @@ package com.example.booking_az.controller;
 
 import com.example.booking_az.dto.requestDto.PaymentRequestDto;
 import com.example.booking_az.dto.responseDto.PaymentResponseDto;
-import com.example.booking_az.entity.Payment;
 import com.example.booking_az.service.impl.PaymentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("payments")
+@RequestMapping("payments/management")
 @RequiredArgsConstructor
 public class PaymentController {
     private final PaymentServiceImpl paymentServiceImpl;
@@ -29,10 +28,10 @@ public class PaymentController {
         return ResponseEntity.ok().body(paymentList);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public Payment add(@RequestBody PaymentRequestDto paymentRequestDto) {
-        return paymentServiceImpl.add(paymentRequestDto);
+    public void add(@RequestBody PaymentRequestDto paymentRequestDto) {
+        paymentServiceImpl.add(paymentRequestDto);
     }
 
     @PutMapping("/{id}")

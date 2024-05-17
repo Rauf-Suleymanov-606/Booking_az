@@ -18,6 +18,7 @@ public class BookingRequestDto {
     private Long orderNo;
     private Long customerId;
     private Long hotelId;
+    private Long paymentId;
 
 }
 

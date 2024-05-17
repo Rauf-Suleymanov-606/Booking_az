@@ -30,7 +30,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(getById);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<ErrorResponse> add(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
         customerService.add(customerRequestDto);
         return ResponseEntity.ok().build();
@@ -54,7 +54,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerList);
     }
 
-    @GetMapping("/{nationality}/customers")//create exception
+    @GetMapping("/{nationality}/customers")
     public ResponseEntity<List<CustomerProjection>> getNameByNationality(@PathVariable String nationality) {
         List<CustomerProjection> customerInfo = customerService.getNameByNationality(nationality);
         return ResponseEntity.ok().body(customerInfo);

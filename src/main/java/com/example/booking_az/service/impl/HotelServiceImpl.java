@@ -52,13 +52,13 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<HotelProjection> getHotelsByStarRating(String starRating) {
-         List<HotelProjection> getHotelsByRating= hotelRepository.findByStarRating(starRating);
-         if(getHotelsByRating.isEmpty()){
-             throw new NotFoundException("Hotel not found with this star rating");
+        List<HotelProjection> getHotelsByRating = hotelRepository.findByStarRating(starRating);
+        if (getHotelsByRating.isEmpty()) {
+            throw new NotFoundException("Hotel not found with this star rating");
 
-         }else {
-             return getHotelsByRating;
-         }
+        } else {
+            return getHotelsByRating;
+        }
 
     }
 

@@ -14,10 +14,10 @@ import java.util.Date;
 public class PaymentRequestDto {
     private Double amount;
     @Enumerated(value = EnumType.STRING)
-    private PaymentStatusEnum paymentStatusEnum;
+    private PaymentStatusEnum paymentStatus;
     private Date paymentDate;
     @Enumerated(value = EnumType.STRING)
-    private PaymentMethodEnum paymentMethodEnum;
+    private PaymentMethodEnum paymentMethod;
     private Long bookingId;
     private Long customerId;
 }

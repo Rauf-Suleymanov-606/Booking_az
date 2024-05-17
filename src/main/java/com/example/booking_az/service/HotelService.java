@@ -11,10 +11,16 @@ import java.util.List;
 
 public interface HotelService {
     HotelResponseDto getById(Long id);
+
     List<HotelByRatingDto> getHotelsByReviewRating(Double reviewRating);
+
     List<HotelProjection> getHotelsByStarRating(String starRating);
-    Hotel add(HotelRequestDto hotelRequestDto);
+
+   Hotel add(HotelRequestDto hotelRequestDto);
+
     void update(Long id, HotelRequestDto hotelRequestDto);
-    void delete (Long id);
+
+    void delete(Long id);
+
     List<HotelResponseDto> getAll();
 }

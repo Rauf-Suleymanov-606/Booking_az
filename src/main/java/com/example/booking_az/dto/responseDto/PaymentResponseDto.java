@@ -14,7 +14,7 @@ public class PaymentResponseDto {
     private Long id;
     private Double amount;
     @Enumerated(value = EnumType.STRING)
-    private PaymentStatusEnum paymentStatusEnum;
+    private PaymentStatusEnum paymentStatus;
     private Date paymentDate;
     @Enumerated(value = EnumType.STRING)
     private PaymentMethodEnum paymentMethod;

@@ -22,8 +22,5 @@ public interface CustomerMapper {
 
     List<CustomerResponseDto> entityToCustomerResponseDto(List<Customer> customer);
 
-
     void update(@MappingTarget Customer customer, CustomerRequestDto customerRequestDto);
-
-
 }

@@ -33,7 +33,7 @@ public class ReviewController {
         return ResponseEntity.ok().body(reviewList);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<ErrorResponse> add(@Valid@RequestBody ReviewRequestDto reviewRequestDto) {
          reviewServiceImpl.add(reviewRequestDto);
          return ResponseEntity.ok().build();

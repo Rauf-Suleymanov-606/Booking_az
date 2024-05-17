@@ -4,16 +4,18 @@ import com.example.booking_az.dto.requestDto.BookingRequestDto;
 import com.example.booking_az.dto.responseDto.BookingByCustomerDto;
 import com.example.booking_az.dto.responseDto.BookingResponseDto;
 import com.example.booking_az.entity.Booking;
+import com.example.booking_az.entity.Payment;
 import com.example.booking_az.service.impl.BookingServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("bookings")
+@RequestMapping("bookings/admin")
 @RequiredArgsConstructor
 public class BookingController {
 
@@ -24,13 +26,14 @@ public class BookingController {
         BookingResponseDto getById = bookingServiceImpl.getById(id);
         return ResponseEntity.ok().body(getById);
     }
-    @GetMapping("/{id}/byCustomerId")
-    public ResponseEntity< BookingByCustomerDto> getBookingByCustomerId(@PathVariable Long id){
-        BookingByCustomerDto getByCustomerId=bookingServiceImpl.getBookingByCustomerId(id);
+
+    @GetMapping("/customers/{customerId}")
+    public ResponseEntity<BookingByCustomerDto> getBookingByCustomerId(@PathVariable Long id) {
+        BookingByCustomerDto getByCustomerId = bookingServiceImpl.getBookingByCustomerId(id);
         return ResponseEntity.ok().body(getByCustomerId);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public Booking add(@RequestBody BookingRequestDto bookingRequestDto) {
         return bookingServiceImpl.add(bookingRequestDto);

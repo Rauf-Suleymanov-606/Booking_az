@@ -9,9 +9,13 @@ import java.util.List;
 public interface PaymentService {
 
     PaymentResponseDto getById(Long id);
+
     List<PaymentResponseDto> getAll();
+
     Payment add(PaymentRequestDto paymentRequestDto);
+
     void update(Long id, PaymentRequestDto paymentRequestDto);
+
     void delete(Long id);
 
 

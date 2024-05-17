@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,13 +17,13 @@ public class Payment {
     private Long id;
     private Double amount;
     @Enumerated(value = EnumType.STRING)
-    private PaymentStatusEnum paymentStatusEnum;
+    private PaymentStatusEnum paymentStatus;
     private Date paymentDate;
     @Enumerated(value = EnumType.STRING)
     private PaymentMethodEnum paymentMethod;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="booking_id",referencedColumnName = "id")
+    @JoinColumn(name = "booking_id", referencedColumnName = "id")
     private Booking booking;
 
     @ManyToOne(fetch = FetchType.LAZY)
