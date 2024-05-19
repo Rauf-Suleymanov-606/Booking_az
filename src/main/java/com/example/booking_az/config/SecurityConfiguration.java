@@ -1,10 +1,11 @@
 package com.example.booking_az.config;
 
+import com.example.booking_az.exception.handler.CustomAccessDeniedHandler;
+import com.example.booking_az.exception.handler.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,10 +20,11 @@ import static org.springframework.http.HttpMethod.*;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity
 public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthfilter;
     private final AuthenticationProvider authenticationProvider;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -43,13 +45,16 @@ public class SecurityConfiguration {
                         .requestMatchers(POST, "bookings/admin/**").hasAnyAuthority(ADMIN_CREATE.name())
                         .requestMatchers(PUT, "bookings/admin/**").hasAnyAuthority(ADMIN_UPDATE.name())
                         .requestMatchers(DELETE, "bookings/admin/**").hasAnyAuthority(ADMIN_DELETE.name())
-
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(sess ->
                         sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthfilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthfilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint));
+
         return http.build();
     }
 }
