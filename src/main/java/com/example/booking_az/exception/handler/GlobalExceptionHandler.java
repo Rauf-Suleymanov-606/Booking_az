@@ -41,4 +41,12 @@ public class GlobalExceptionHandler {
         log.info("Validation exception thrown..");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+    @ExceptionHandler(UserNameExistException.class)
+    public ResponseEntity<?> userNameExistException(UserNameExistException userNameExistException) {
+        List<String> details = new ArrayList<>();
+        details.add(userNameExistException.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(userNameExistException.getMessage(), details);
+        log.info("User name exist exception thrown..");
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
 }
