@@ -13,7 +13,6 @@ public class CustomerRequestDto {
     private String email;
     @NotEmpty(message = "Gender can not be empty!")
     private String gender;
-    private Long id;
     private Long hotelId;
     private Long paymentId;
 }

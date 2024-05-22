@@ -1,5 +1,6 @@
 package com.example.booking_az.config;
 
+import com.example.booking_az.exception.handler.NotFoundException;
 import com.example.booking_az.security.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +22,8 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userRepository.findByUserName(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return userName -> userRepository.findByUserName(userName)
+                .orElseThrow(() -> new NotFoundException("User not found"));
 
     }
 

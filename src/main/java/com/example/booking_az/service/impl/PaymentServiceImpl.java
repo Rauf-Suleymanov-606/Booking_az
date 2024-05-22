@@ -25,7 +25,7 @@ public class PaymentServiceImpl implements PaymentService {
         Payment getPaymentById = paymentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Payment not found with this id: " + id));
         PaymentResponseDto getById = paymentMapper.entityToPaymentResponseDto(getPaymentById);
-        log.info("Payment invoked with this id: ", id);
+        log.info("Payment invoked with this id: " + id);
         return getById;
     }
 
@@ -39,8 +39,8 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public Payment add(PaymentRequestDto paymentRequestDto) {
         Payment payment = paymentMapper.paymentRequestDtoToEntity(paymentRequestDto);
+        log.info("Payment succesfully added= {}");
         return paymentRepository.save(payment);
-
     }
 
     @Override
@@ -48,6 +48,7 @@ public class PaymentServiceImpl implements PaymentService {
         Payment updatedPayment = paymentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Payment not found with this id: " + id));
         paymentMapper.update(updatedPayment, paymentRequestDto);
+        paymentRepository.save(updatedPayment);
         log.info("Payment updated with this id: {} ", id);
     }
 
@@ -56,6 +57,6 @@ public class PaymentServiceImpl implements PaymentService {
         Payment deletedPayment = paymentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Payment not found with this id: " + id));
         paymentRepository.delete(deletedPayment);
-        log.info("Payment deleted with this id: ", id);
+        log.info("Payment deleted with this id: " + id);
     }
 }

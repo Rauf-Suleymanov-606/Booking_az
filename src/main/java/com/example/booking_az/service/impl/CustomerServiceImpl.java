@@ -26,9 +26,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
-    private final HotelRepository hotelRepository;
-    private final BookingRepository bookingRepository;
-    private final BookingMapper bookingMapper;
 
     @Override
     public CustomerResponseDto getById(Long id) {
@@ -41,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer add(CustomerRequestDto customerRequestDto) {
         Customer customer = customerMapper.customerRequestDtoToEntity(customerRequestDto);
-       return customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override
@@ -50,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .orElseThrow(() -> new NotFoundException("Customer not found with this id: " + id));
         customerMapper.update(updatedCustomer, customerRequestDto);
         customerRepository.save(updatedCustomer);
-        log.info("Booking updated with this id= " + id);
+        log.info("Customer updated with this id= " + id);
     }
 
     @Override
@@ -58,7 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer deletedCustomer = customerRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Customer not found with this id: " + id));
         customerRepository.delete(deletedCustomer);
-        log.info("Booking deleted with this id= ", id);
+        log.info("Customer deleted with this id= ", id);
     }
 
     @Override
@@ -70,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerProjection> getNameByNationality(String nationality) {
-        List<CustomerProjection> customers = customerRepository.findByNationality(nationality);
+        List<CustomerProjection> customers = customerRepository.findByNationalityIgnoreCase(nationality);
         if (customers.isEmpty()) {
             throw new NotFoundException("Name not found with this nationality!");
         }

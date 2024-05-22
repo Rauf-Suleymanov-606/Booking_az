@@ -4,6 +4,7 @@ package com.example.booking_az.controller;
 import com.example.booking_az.dto.requestDto.CustomerRequestDto;
 import com.example.booking_az.dto.responseDto.CustomerResponseDto;
 import com.example.booking_az.dto.responseDto.HotelResponseDto;
+import com.example.booking_az.entity.Customer;
 import com.example.booking_az.entity.projection.CustomerProjection;
 import com.example.booking_az.exception.ErrorResponse;
 import com.example.booking_az.service.impl.CustomerServiceImpl;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,20 +33,20 @@ public class CustomerController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ErrorResponse> add(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
-        customerService.add(customerRequestDto);
-        return ResponseEntity.ok().build();
+    @ResponseStatus(HttpStatus.CREATED)
+    public Customer add(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
+        return customerService.add(customerRequestDto);
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable Long id, @RequestBody CustomerRequestDto customerRequestDto) {
         customerService.update(id, customerRequestDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(Long id) {
+    public void delete(@PathVariable Long id) {
         customerService.delete(id);
     }
 

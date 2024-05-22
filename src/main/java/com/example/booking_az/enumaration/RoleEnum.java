@@ -13,7 +13,7 @@ import static com.example.booking_az.enumaration.PermissionsEnum.*;
 
 @RequiredArgsConstructor
 public enum RoleEnum {
-    USER(Collections.emptySet()),//deyishdir
+    USER(Collections.emptySet()),
     ADMIN(Set.of(
             ADMIN_READ,
             ADMIN_UPDATE,

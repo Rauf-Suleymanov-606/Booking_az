@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @EntityGraph(attributePaths = "booking")
     Optional<Customer> findById(Long id);
-    List<CustomerProjection> findByNationality(String nationality);
+    List<CustomerProjection> findByNationalityIgnoreCase(String nationality);
 
 }

@@ -1,6 +1,7 @@
 package com.example.booking_az.controller;
 import com.example.booking_az.dto.requestDto.RoomRequestDto;
 import com.example.booking_az.dto.responseDto.RoomResponseDto;
+import com.example.booking_az.entity.Room;
 import com.example.booking_az.exception.ErrorResponse;
 import com.example.booking_az.service.impl.RoomServiceImpl;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,13 +28,13 @@ public class RoomController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ErrorResponse> add(@Valid @RequestBody RoomRequestDto roomRequestDto) {
-        roomServiceImpl.add(roomRequestDto);
-        return ResponseEntity.ok().build();
+    @ResponseStatus(HttpStatus.CREATED)
+    public Room add(@Valid @RequestBody RoomRequestDto roomRequestDto) {
+        return roomServiceImpl.add(roomRequestDto);
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable Long id, @RequestBody RoomRequestDto roomRequestDto) {
         roomServiceImpl.update(id, roomRequestDto);
     }

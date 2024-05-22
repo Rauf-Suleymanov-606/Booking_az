@@ -14,5 +14,4 @@ public class HotelRequestDto {
     private String street;
     @NotNull(message = "Room count can not be null!")
     private Integer roomCount;
-    private Long id;
 }

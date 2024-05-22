@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +29,8 @@ public class BookingController {
     }
 
     @GetMapping("/customers/{customerId}")
-    public ResponseEntity<BookingByCustomerDto> getBookingByCustomerId(@PathVariable Long id) {
-        BookingByCustomerDto getByCustomerId = bookingServiceImpl.getBookingByCustomerId(id);
+    public ResponseEntity<BookingByCustomerDto> getBookingByCustomerId(@PathVariable Long customerId) {
+        BookingByCustomerDto getByCustomerId = bookingServiceImpl.getBookingByCustomerId(customerId);
         return ResponseEntity.ok().body(getByCustomerId);
     }
 
@@ -40,7 +41,7 @@ public class BookingController {
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable Long id, @RequestBody BookingRequestDto bookingRequestDto) {
         bookingServiceImpl.update(id, bookingRequestDto);
 
@@ -48,7 +49,7 @@ public class BookingController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(Long id) {
+    public void delete(@PathVariable Long id) {
         bookingServiceImpl.delete(id);
     }
 

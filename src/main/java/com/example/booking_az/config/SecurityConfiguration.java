@@ -41,10 +41,10 @@ public class SecurityConfiguration {
                         .requestMatchers(DELETE, "payments/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
 
                         .requestMatchers("bookings/admin/**").hasRole(ADMIN.name())
-                        .requestMatchers(GET, "bookings/admin/**").hasAnyAuthority(ADMIN_READ.name())
-                        .requestMatchers(POST, "bookings/admin/**").hasAnyAuthority(ADMIN_CREATE.name())
-                        .requestMatchers(PUT, "bookings/admin/**").hasAnyAuthority(ADMIN_UPDATE.name())
-                        .requestMatchers(DELETE, "bookings/admin/**").hasAnyAuthority(ADMIN_DELETE.name())
+                        .requestMatchers(GET, "bookings/admin/**").hasAuthority(ADMIN_READ.name())
+                        .requestMatchers(POST, "bookings/admin/**").hasAuthority(ADMIN_CREATE.name())
+                        .requestMatchers(PUT, "bookings/admin/**").hasAuthority(ADMIN_UPDATE.name())
+                        .requestMatchers(DELETE, "bookings/admin/**").hasAuthority(ADMIN_DELETE.name())
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(sess ->

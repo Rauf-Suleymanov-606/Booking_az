@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,20 +35,20 @@ public class ReviewController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ErrorResponse> add(@Valid@RequestBody ReviewRequestDto reviewRequestDto) {
-         reviewServiceImpl.add(reviewRequestDto);
-         return ResponseEntity.ok().build();
+    @ResponseStatus(HttpStatus.CREATED)
+    public Review add(@Valid@RequestBody ReviewRequestDto reviewRequestDto) {
+         return   reviewServiceImpl.add(reviewRequestDto);
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable Long id, @RequestBody ReviewRequestDto reviewRequestDto) {
         reviewServiceImpl.update(id, reviewRequestDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(Long id) {
+    public void delete(@PathVariable Long id) {
         reviewServiceImpl.delete(id);
     }
 }

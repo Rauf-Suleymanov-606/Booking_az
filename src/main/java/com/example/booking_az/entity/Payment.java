@@ -4,6 +4,7 @@ import com.example.booking_az.enumaration.PaymentMethodEnum;
 import com.example.booking_az.enumaration.PaymentStatusEnum;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;

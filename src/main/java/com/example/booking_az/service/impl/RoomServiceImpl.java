@@ -25,7 +25,7 @@ public class RoomServiceImpl implements RoomService {
         Room getRoomById = roomRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException("Room not found with this id: "+id));
         RoomResponseDto getById = roomMapper.entityToHotelResponseDto(getRoomById);
-        log.info("Room invoked with this id",id);
+        log.info("Room invoked with this id: "+id);
         return getById;
 
     }
@@ -42,7 +42,7 @@ public class RoomServiceImpl implements RoomService {
                 .orElseThrow(()->new NotFoundException("Room not found with this id: "+id));
         roomMapper.update(updatedRoom, roomRequestDto);
         roomRepository.save(updatedRoom);
-        log.info("Room updated with this id",id);
+        log.info("Room updated with this id: "+id);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class RoomServiceImpl implements RoomService {
         Room deletedRoom = roomRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException("Room not found with this id: "+id));
         roomRepository.delete(deletedRoom);
-        log.info("Room deleted with this id",id);
+        log.info("Room deleted with this id: ",id);
     }
 
     @Override

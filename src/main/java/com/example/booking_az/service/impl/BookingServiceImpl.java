@@ -63,7 +63,7 @@ public class BookingServiceImpl implements BookingService {
         Booking deletedBooking = bookingRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Booking not found with this id " + id));
         bookingRepository.delete(deletedBooking);
-        log.info("Booking deleted with this id= ", id);
+        log.info("Booking deleted with this id= " + id);
     }
 
     @Override

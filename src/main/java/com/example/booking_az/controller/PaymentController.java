@@ -2,7 +2,10 @@ package com.example.booking_az.controller;
 
 import com.example.booking_az.dto.requestDto.PaymentRequestDto;
 import com.example.booking_az.dto.responseDto.PaymentResponseDto;
+import com.example.booking_az.entity.Payment;
+import com.example.booking_az.exception.ErrorResponse;
 import com.example.booking_az.service.impl.PaymentServiceImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +33,13 @@ public class PaymentController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody PaymentRequestDto paymentRequestDto) {
-        paymentServiceImpl.add(paymentRequestDto);
+    public Payment add(@Valid @RequestBody PaymentRequestDto paymentRequestDto) {
+        return paymentServiceImpl.add(paymentRequestDto);
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void update(@PathVariable Long id, PaymentRequestDto paymentRequestDto) {
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@PathVariable Long id, @RequestBody PaymentRequestDto paymentRequestDto) {
         paymentServiceImpl.update(id, paymentRequestDto);
     }
 

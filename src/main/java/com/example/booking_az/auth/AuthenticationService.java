@@ -1,6 +1,5 @@
 package com.example.booking_az.auth;
 
-import com.example.booking_az.enumaration.RoleEnum;
 import com.example.booking_az.exception.handler.NotFoundException;
 import com.example.booking_az.exception.handler.UserNameExistException;
 import com.example.booking_az.security.User;
@@ -29,8 +28,8 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
-        if (repository.existsByUserName(request.getUserName())){
-            throw  new UserNameExistException("User name already exists. Choose, new user name");
+        if (repository.existsByUserName(request.getUserName())) {
+            throw new UserNameExistException("User name already exists. Choose, new user name");
         }
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);

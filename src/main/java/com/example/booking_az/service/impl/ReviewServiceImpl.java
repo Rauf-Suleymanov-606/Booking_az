@@ -49,7 +49,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .orElseThrow(()->new NotFoundException("Review not found with this id: "+id));
         reviewMapper.update(updatedReview, reviewRequestDto);
         reviewRepository.save(updatedReview);
-        log.info("Review updated with this id: ", id);
+        log.info("Review updated with this id: "+ id);
     }
 
     @Override
@@ -57,6 +57,6 @@ public class ReviewServiceImpl implements ReviewService {
         Review deletedReview = reviewRepository.findById(id)
                 .orElseThrow(()->new NotFoundException("Review not found with this id: "+id));
         reviewRepository.delete(deletedReview);
-        log.info("Review deleted with this id: ", id);
+        log.info("Review deleted with this id: "+ id);
     }
 }
